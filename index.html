@@ -19,6 +19,16 @@
 <body>
     <h1>Tourism in Malaysia: Entry Points</h1>
     <div id="symbol_map"></div>
+
+    <h2 id="bar-chart-title">Top 10 Points of Entry (by Year)</h2>
+    <p id="bar-chart-caption"></p>
+    <div id="top10_poe_bar"></div>
+
+    <script>
+      vegaEmbed('#top10_poe_bar', 'top10_poe_bar.json', { actions: false });
+    </script>
+
+
 </body>
 
 </html>
