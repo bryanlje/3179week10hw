@@ -14,7 +14,7 @@
       "value": "All",
       "bind": {
         "input": "select",
-        "name": "Traveller: ",
+        "name": "Gender: ",
         "options": ["All", "Male", "Female"]
       }
     }
