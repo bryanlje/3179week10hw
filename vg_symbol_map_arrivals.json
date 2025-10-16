@@ -8,6 +8,17 @@
     "fill": "#dffeff",
     "stroke": "transparent"
   },
+  "params": [
+    {
+      "name": "sexSel",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": "Traveller: ",
+        "options": ["All", "Male", "Female"]
+      }
+    }
+  ],
   "layer": [
     {
       "data": {
@@ -38,7 +49,7 @@
         "fill": "#b1ffae", 
         "stroke": "#489c35", 
         "strokeWidth": 1 
-    }
+      }
     },
     {
       "data": {
@@ -65,26 +76,30 @@
             "fields": ["lat", "long", "type", "state", "abb", "iso"]
           }
         },
-        { "filter": "isValid(datum.lat) && isValid(datum.long)" }
+        { "filter": "isValid(datum.lat) && isValid(datum.long)" },
+        {
+          "calculate": "sexSel == 'All' ? datum.arrivals_total : (sexSel == 'Male' ? datum.arrivals_male : datum.arrivals_female)",
+          "as": "arrivals_value"
+        }
       ],
       "mark": { "type": "circle", "opacity": 0.9, "stroke": "white", "strokeWidth": 0.6, "tooltip": {"content":"data"} },
       "encoding": {
         "longitude": { "field": "long", "type": "quantitative" },
         "latitude":  { "field": "lat",  "type": "quantitative" },
         "size": {
-          "field": "arrivals_total",
+          "field": "arrivals_value",
           "type": "quantitative",
           "title": "Total Arrivals",
           "scale": { "type": "sqrt", "range": [30, 1200] }
         },
         "color": { 
-            "field": "type", 
-            "type": "nominal", 
-            "title": "Point of Entry Type",
-            "scale": {
-                "domain": ["Land", "Air", "Sea"],
-                "range": ["#E69F00", "#3da7d4", "#008a57"] 
-            }
+          "field": "type", 
+          "type": "nominal", 
+          "title": "Point of Entry Type",
+          "scale": {
+            "domain": ["Land", "Air", "Sea"],
+            "range": ["#E69F00", "#3da7d4", "#008a57"] 
+          }
         },
         "tooltip": [
           { "field": "poe", "title": "Point of Entry" },
@@ -95,19 +110,19 @@
             "type": "quantitative", 
             "title": "Total Arrivals (all years)", 
             "format": "," 
-        },
-        { 
+          },
+          { 
             "field": "arrivals_male", 
             "type": "quantitative", 
             "title": "Male Arrivals (all years)", 
             "format": "," 
-        },
-        { 
+          },
+          { 
             "field": "arrivals_female", 
             "type": "quantitative", 
             "title": "Female Arrivals (all years)", 
             "format": "," 
-        }
+          }
         ]
       }
     }
